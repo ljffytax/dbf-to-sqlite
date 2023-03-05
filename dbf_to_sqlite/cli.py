@@ -23,7 +23,7 @@ def cli(dbf_paths, sqlite_db, table, verbose):
         table_name = table if table else Path(path).stem
         if verbose:
             click.echo('Loading {} into table "{}"'.format(path, table_name))
-        table = dbf.Table(str(path))
+        table = dbf.Table(str(path),unicode_errors='ignore')
         table.open()
         columns = table.field_names
         db[table_name].insert_all(dict(zip(columns, list(row))) for row in table)
